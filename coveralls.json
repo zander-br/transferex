@@ -1,0 +1,11 @@
+{
+  "skip_files": [
+    "lib/transferex/application.ex",
+    "lib/transferex_web.ex",
+    "lib/transferex_web/telemetry.ex",
+    "lib/transferex_web/views/error_helpers.ex",
+    "test/support/channel_case.ex",
+    "test/support/data_case.ex"
+  ],
+  "treat_no_relevant_lines_as_covered": true
+}
