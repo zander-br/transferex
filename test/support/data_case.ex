@@ -16,6 +16,8 @@ defmodule Transferex.DataCase do
 
   use ExUnit.CaseTemplate
 
+  alias Ecto.Adapters.SQL.Sandbox
+
   using do
     quote do
       alias Transferex.Repo
@@ -28,10 +30,10 @@ defmodule Transferex.DataCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Transferex.Repo)
+    :ok = Sandbox.checkout(Transferex.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Transferex.Repo, {:shared, self()})
+      Sandbox.mode(Transferex.Repo, {:shared, self()})
     end
 
     :ok
