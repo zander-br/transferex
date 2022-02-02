@@ -20,5 +20,14 @@ defmodule Transferex.Transfers.Core.CreateTransferTest do
 
       assert {:ok, %Transfer{id: _id, inserted_at: _inserted_at, status: :rejected}} = response
     end
+
+    test "when all params is valid and due_date is future, returns the transfer with status :scheduled" do
+      due_date_in_future = Date.utc_today() |> Date.add(1) |> Date.to_string()
+      valid_transfer = build(:transfer_attrs, due_date: due_date_in_future)
+
+      response = CreateTransfer.execute(valid_transfer)
+
+      assert {:ok, %Transfer{id: _id, inserted_at: _inserted_at, status: :scheduled}} = response
+    end
   end
 end
