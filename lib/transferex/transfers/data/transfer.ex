@@ -3,10 +3,12 @@ defmodule Transferex.Transfers.Data.Transfer do
 
   import Ecto.Changeset
 
+  alias Ecto.Enum
   alias Ecto.UUID
 
   @fields [:value, :due_date, :origin_account_id, :destination_account_id]
   @required_fields [:value, :origin_account_id, :destination_account_id]
+  @transfer_status [:created, :aproved, :scheduled, :rejected]
 
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "transfers" do
@@ -14,6 +16,7 @@ defmodule Transferex.Transfers.Data.Transfer do
     field :due_date, :date
     field :origin_account_id, :binary_id
     field :destination_account_id, :binary_id
+    field :status, Enum, values: @transfer_status
 
     timestamps()
   end
