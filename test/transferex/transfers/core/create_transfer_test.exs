@@ -1,6 +1,7 @@
 defmodule Transferex.Transfers.Core.CreateTransferTest do
   use Transferex.DataCase, async: true
 
+  alias Ecto.Changeset
   alias Transferex.Transfers.Core.CreateTransfer
   alias Transferex.Transfers.Data.Transfer
 
@@ -37,6 +38,16 @@ defmodule Transferex.Transfers.Core.CreateTransferTest do
       response = CreateTransfer.execute(valid_transfer)
 
       assert {:ok, %Transfer{id: _id, inserted_at: _inserted_at, status: :scheduled}} = response
+    end
+
+    test "when there is invalid params, returns an error" do
+      invalid_transfer = build(:transfer_attrs, value: 0)
+      expected_response = %{value: ["must be greater than 0"]}
+
+      response = CreateTransfer.execute(invalid_transfer)
+
+      assert {:error, %Changeset{valid?: false} = changeset} = response
+      assert errors_on(changeset) == expected_response
     end
   end
 end
