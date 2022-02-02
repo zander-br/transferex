@@ -26,6 +26,7 @@ defmodule Transferex.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Transferex.DataCase
+      import Transferex.Factory
     end
   end
 
