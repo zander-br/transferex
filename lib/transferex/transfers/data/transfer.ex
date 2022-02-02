@@ -6,8 +6,8 @@ defmodule Transferex.Transfers.Data.Transfer do
   alias Ecto.Enum
   alias Ecto.UUID
 
-  @fields [:value, :due_date, :origin_account_id, :destination_account_id]
-  @required_fields [:value, :origin_account_id, :destination_account_id]
+  @fields [:value, :due_date, :origin_account_id, :destination_account_id, :status]
+  @required_fields [:value, :origin_account_id, :destination_account_id, :status]
   @transfer_status [:created, :aproved, :scheduled, :rejected]
 
   @primary_key {:id, :binary_id, autogenerate: true}

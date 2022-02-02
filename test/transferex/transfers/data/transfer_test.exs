@@ -23,7 +23,8 @@ defmodule Transferex.Transfers.Data.TransferTest do
       expected_response = %{
         value: ["can't be blank"],
         destination_account_id: ["can't be blank"],
-        origin_account_id: ["can't be blank"]
+        origin_account_id: ["can't be blank"],
+        status: ["can't be blank"]
       }
 
       invalid_transfer = Transfer.changeset(%{})
