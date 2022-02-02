@@ -23,5 +23,17 @@ defmodule Transferex.Transfers.Data.Transfer do
     |> cast(attrs, @fields)
     |> validate_required(@required_fields)
     |> validate_number(:value, greater_than: 0)
+    |> validate_due_date_not_past()
+  end
+
+  defp validate_due_date_not_past(changeset) do
+    validate_change(changeset, :due_date, fn _, due_date ->
+      now = Date.utc_today()
+
+      case Date.compare(due_date, now) do
+        :lt -> [due_date: "cannot be in past"]
+        _ -> []
+      end
+    end)
   end
 end
