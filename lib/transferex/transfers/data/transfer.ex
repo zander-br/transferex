@@ -9,7 +9,7 @@ defmodule Transferex.Transfers.Data.Transfer do
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "transfers" do
     field :value, :decimal
-    field :due_date, :naive_datetime
+    field :due_date, :date
     field :origin_account_id, :binary_id
     field :destination_account_id, :binary_id
   end
