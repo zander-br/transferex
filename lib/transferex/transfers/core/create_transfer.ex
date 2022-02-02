@@ -15,6 +15,7 @@ defmodule Transferex.Transfers.Core.CreateTransfer do
 
     case Date.compare(due_date, now) do
       :lt -> Map.put(transfer, :status, :rejected)
+      :gt -> Map.put(transfer, :status, :scheduled)
       _ -> Map.put(transfer, :status, :created)
     end
   end
