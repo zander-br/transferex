@@ -13,6 +13,15 @@ defmodule Transferex.Transfers.Core.CreateTransferTest do
       assert {:ok, %Transfer{id: _id, inserted_at: _inserted_at, status: :created}} = response
     end
 
+    test "when all params is valid and due_date is today, returns the transfer with status :created" do
+      due_date_in_today = Date.utc_today() |> Date.to_string()
+      valid_transfer = build(:transfer_attrs, due_date: due_date_in_today)
+
+      response = CreateTransfer.execute(valid_transfer)
+
+      assert {:ok, %Transfer{id: _id, inserted_at: _inserted_at, status: :created}} = response
+    end
+
     test "when all params is valid and due_date is past, returns the transfer with status :rejected" do
       valid_transfer = build(:transfer_attrs, due_date: "2000-01-01")
 
