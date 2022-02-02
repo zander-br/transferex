@@ -3,6 +3,8 @@ defmodule Transferex.Transfers.Data.Transfer do
 
   import Ecto.Changeset
 
+  alias Ecto.UUID
+
   @fields [:value, :due_date, :origin_account_id, :destination_account_id]
   @required_fields [:value, :origin_account_id, :destination_account_id]
 
@@ -12,6 +14,8 @@ defmodule Transferex.Transfers.Data.Transfer do
     field :due_date, :date
     field :origin_account_id, :binary_id
     field :destination_account_id, :binary_id
+
+    timestamps()
   end
 
   def changeset(attrs \\ %{}) do
@@ -23,6 +27,8 @@ defmodule Transferex.Transfers.Data.Transfer do
     |> cast(attrs, @fields)
     |> validate_required(@required_fields)
     |> validate_number(:value, greater_than: 0)
+    |> validate_uuid(:origin_account_id)
+    |> validate_uuid(:destination_account_id)
     |> validate_due_date_not_past()
   end
 
@@ -33,6 +39,15 @@ defmodule Transferex.Transfers.Data.Transfer do
       case Date.compare(due_date, now) do
         :lt -> [due_date: "cannot be in past"]
         _ -> []
+      end
+    end)
+  end
+
+  defp validate_uuid(changeset, field, options \\ []) when is_atom(field) do
+    validate_change(changeset, field, fn _, student_id ->
+      case UUID.cast(student_id) do
+        :error -> [{field, options[:message] || "invalid uuid"}]
+        {:ok, _uuid} -> []
       end
     end)
   end

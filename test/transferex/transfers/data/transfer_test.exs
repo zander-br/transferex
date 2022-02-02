@@ -48,5 +48,27 @@ defmodule Transferex.Transfers.Data.TransferTest do
 
       assert errors_on(invalid_transfer) == expected_response
     end
+
+    test "when invalid origin_account_id, returns an invalid changeset" do
+      invalid_attrs = build(:transfer_attrs, %{origin_account_id: "invalid_id"})
+
+      invalid_transfer = Transfer.changeset(invalid_attrs)
+
+      expected_invalid_response = %{origin_account_id: ["invalid uuid"]}
+
+      assert errors_on(invalid_transfer) == expected_invalid_response
+      assert %Changeset{valid?: false} = invalid_transfer
+    end
+
+    test "when invalid destination_account_id, returns an invalid changeset" do
+      invalid_attrs = build(:transfer_attrs, %{destination_account_id: "invalid_id"})
+
+      invalid_transfer = Transfer.changeset(invalid_attrs)
+
+      expected_invalid_response = %{destination_account_id: ["invalid uuid"]}
+
+      assert errors_on(invalid_transfer) == expected_invalid_response
+      assert %Changeset{valid?: false} = invalid_transfer
+    end
   end
 end
