@@ -52,6 +52,7 @@ defmodule Transferex.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
+      {:casex, "~> 0.4.2"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.10", only: :test},
       {:git_hooks, "~> 0.6.5", only: [:dev], runtime: false},
