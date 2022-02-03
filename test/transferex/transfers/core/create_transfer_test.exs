@@ -14,6 +14,15 @@ defmodule Transferex.Transfers.Core.CreateTransferTest do
       assert {:ok, %Transfer{id: _id, inserted_at: _inserted_at, status: :created}} = response
     end
 
+    test "when there is invalid due_date, returns an error" do
+      invalid_transfer = build(:transfer_attrs, due_date: "01/01/2000")
+
+      response = CreateTransfer.execute(invalid_transfer)
+
+      assert {:error, {:unprocessable_entity, %{due_date: ["Invalid due_date format"]}}} =
+               response
+    end
+
     test "when all params is valid and due_date is today, returns the transfer with status :created" do
       due_date_in_today = Date.utc_today() |> Date.to_string()
       valid_transfer = build(:transfer_attrs, due_date: due_date_in_today)
@@ -46,7 +55,7 @@ defmodule Transferex.Transfers.Core.CreateTransferTest do
 
       response = CreateTransfer.execute(invalid_transfer)
 
-      assert {:error, %Changeset{valid?: false} = changeset} = response
+      assert {:error, {:unprocessable_entity, %Changeset{valid?: false} = changeset}} = response
       assert errors_on(changeset) == expected_response
     end
   end
