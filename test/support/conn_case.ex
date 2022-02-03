@@ -25,6 +25,8 @@ defmodule TransferexWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import TransferexWeb.ConnCase
+      import Phoenix.View
+      import Transferex.Factory
 
       alias TransferexWeb.Router.Helpers, as: Routes
 
