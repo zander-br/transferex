@@ -9,10 +9,10 @@ defmodule Transferex.Transfers.Core.CreateTransfer do
     |> insert_transfer()
   end
 
-  defp convert_due_date(%{due_date: due_date} = transfer) do
+  defp convert_due_date(%{"due_date" => due_date} = transfer) do
     case Date.from_iso8601(due_date) do
       {:ok, date} ->
-        {:ok, Map.put(transfer, :due_date, date)}
+        {:ok, Map.put(transfer, "due_date", date)}
 
       {:error, :invalid_format} ->
         {:error, {:unprocessable_entity, %{due_date: ["Invalid due_date format"]}}}
@@ -21,17 +21,17 @@ defmodule Transferex.Transfers.Core.CreateTransfer do
 
   defp convert_due_date(transfer), do: {:ok, transfer}
 
-  defp add_status_transfer({:ok, %{due_date: due_date} = transfer}) do
+  defp add_status_transfer({:ok, %{"due_date" => due_date} = transfer}) do
     now = Date.utc_today()
 
     case Date.compare(due_date, now) do
-      :lt -> {:ok, Map.put(transfer, :status, :rejected)}
-      :gt -> {:ok, Map.put(transfer, :status, :scheduled)}
-      _ -> {:ok, Map.put(transfer, :status, :created)}
+      :lt -> {:ok, Map.put(transfer, "status", :rejected)}
+      :gt -> {:ok, Map.put(transfer, "status", :scheduled)}
+      _ -> {:ok, Map.put(transfer, "status", :created)}
     end
   end
 
-  defp add_status_transfer({:ok, transfer}), do: {:ok, Map.put(transfer, :status, :created)}
+  defp add_status_transfer({:ok, transfer}), do: {:ok, Map.put(transfer, "status", :created)}
 
   defp add_status_transfer({:error, opts}), do: {:error, opts}
 

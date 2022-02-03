@@ -15,7 +15,7 @@ defmodule Transferex.Transfers.Core.CreateTransferTest do
     end
 
     test "when there is invalid due_date, returns an error" do
-      invalid_transfer = build(:transfer_attrs, due_date: "01/01/2000")
+      invalid_transfer = build(:transfer_attrs, %{"due_date" => "01/01/2000"})
 
       response = CreateTransfer.execute(invalid_transfer)
 
@@ -25,7 +25,7 @@ defmodule Transferex.Transfers.Core.CreateTransferTest do
 
     test "when all params is valid and due_date is today, returns the transfer with status :created" do
       due_date_in_today = Date.utc_today() |> Date.to_string()
-      valid_transfer = build(:transfer_attrs, due_date: due_date_in_today)
+      valid_transfer = build(:transfer_attrs, %{"due_date" => due_date_in_today})
 
       response = CreateTransfer.execute(valid_transfer)
 
@@ -33,7 +33,7 @@ defmodule Transferex.Transfers.Core.CreateTransferTest do
     end
 
     test "when all params is valid and due_date is past, returns the transfer with status :rejected" do
-      valid_transfer = build(:transfer_attrs, due_date: "2000-01-01")
+      valid_transfer = build(:transfer_attrs, %{"due_date" => "2000-01-01"})
 
       response = CreateTransfer.execute(valid_transfer)
 
@@ -42,7 +42,7 @@ defmodule Transferex.Transfers.Core.CreateTransferTest do
 
     test "when all params is valid and due_date is future, returns the transfer with status :scheduled" do
       due_date_in_future = Date.utc_today() |> Date.add(1) |> Date.to_string()
-      valid_transfer = build(:transfer_attrs, due_date: due_date_in_future)
+      valid_transfer = build(:transfer_attrs, %{"due_date" => due_date_in_future})
 
       response = CreateTransfer.execute(valid_transfer)
 
@@ -50,7 +50,7 @@ defmodule Transferex.Transfers.Core.CreateTransferTest do
     end
 
     test "when there is invalid params, returns an error" do
-      invalid_transfer = build(:transfer_attrs, value: 0)
+      invalid_transfer = build(:transfer_attrs, %{"value" => 0})
       expected_response = %{value: ["must be greater than 0"]}
 
       response = CreateTransfer.execute(invalid_transfer)

@@ -33,7 +33,7 @@ defmodule Transferex.Transfers.Data.TransferTest do
     end
 
     test "when there is invalid value, return an error" do
-      invalid_attrs = build(:transfer_attrs, value: 0)
+      invalid_attrs = build(:transfer_attrs, %{"value" => 0})
       expected_response = %{value: ["must be greater than 0"]}
 
       invalid_transfer = Transfer.changeset(invalid_attrs)
@@ -42,7 +42,7 @@ defmodule Transferex.Transfers.Data.TransferTest do
     end
 
     test "when invalid origin_account_id, returns an invalid changeset" do
-      invalid_attrs = build(:transfer_attrs, %{origin_account_id: "invalid_id"})
+      invalid_attrs = build(:transfer_attrs, %{"origin_account_id" => "invalid_id"})
 
       invalid_transfer = Transfer.changeset(invalid_attrs)
 
@@ -53,7 +53,7 @@ defmodule Transferex.Transfers.Data.TransferTest do
     end
 
     test "when invalid destination_account_id, returns an invalid changeset" do
-      invalid_attrs = build(:transfer_attrs, %{destination_account_id: "invalid_id"})
+      invalid_attrs = build(:transfer_attrs, %{"destination_account_id" => "invalid_id"})
 
       invalid_transfer = Transfer.changeset(invalid_attrs)
 
