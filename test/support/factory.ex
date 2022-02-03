@@ -12,6 +12,14 @@ defmodule Transferex.Factory do
     }
   end
 
+  def transfer_request_factory do
+    %{
+      "value" => 100.20,
+      "originAccountId" => "b007861e-806d-4580-b705-ac8eff473e2c",
+      "destinationAccountId" => "a0868a72-8278-44ee-9125-b4035cdb2e09"
+    }
+  end
+
   def transfer_factory do
     %Transfer{
       destination_account_id: "f47a196e-e8a3-4db3-9322-3e4df81b5160",

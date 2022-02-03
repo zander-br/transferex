@@ -11,6 +11,7 @@ defmodule TransferexWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug Casex.CamelCaseDecoderPlug
   end
 
   scope "/", TransferexWeb do
@@ -19,10 +20,11 @@ defmodule TransferexWeb.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", TransferexWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", TransferexWeb do
+    pipe_through :api
+
+    post "/transfers", TransfersController, :create
+  end
 
   # Enables LiveDashboard only for development
   #
