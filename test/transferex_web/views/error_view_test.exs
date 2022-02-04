@@ -22,5 +22,17 @@ defmodule TransferexWeb.ErrorViewTest do
 
       assert expected_response == response
     end
+
+    test "render error.json with only error" do
+      expected_response = %{
+        errors: [
+          %{field: "dueDate", message: "invalid format"}
+        ]
+      }
+
+      response = render(ErrorView, "error.json", error: %{due_date: "invalid format"})
+
+      assert expected_response == response
+    end
   end
 end
