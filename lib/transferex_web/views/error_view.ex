@@ -15,6 +15,18 @@ defmodule TransferexWeb.ErrorView do
     %{errors: errors}
   end
 
+  def render("error.json", %{error: error}) do
+    errors =
+      Enum.map(error, fn {field, detail} ->
+        %{
+          field: Inflex.camelize(field, :lower),
+          message: render_detail(detail)
+        }
+      end)
+
+    %{errors: errors}
+  end
+
   defp render_detail({message, values}) do
     Enum.reduce(values, message, fn {key, value}, acc ->
       String.replace(acc, "%{#{key}}", to_string(value))
