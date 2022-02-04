@@ -15,7 +15,7 @@ defmodule Transferex.Transfers.Core.CreateTransfer do
         {:ok, Map.put(transfer, "due_date", date)}
 
       {:error, :invalid_format} ->
-        {:error, {:unprocessable_entity, %{due_date: ["Invalid due_date format"]}}}
+        {:error, {:unprocessable_entity, %{due_date: "invalid format"}}}
     end
   end
 

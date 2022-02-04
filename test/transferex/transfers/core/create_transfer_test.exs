@@ -19,8 +19,7 @@ defmodule Transferex.Transfers.Core.CreateTransferTest do
 
       response = CreateTransfer.execute(invalid_transfer)
 
-      assert {:error, {:unprocessable_entity, %{due_date: ["Invalid due_date format"]}}} =
-               response
+      assert {:error, {:unprocessable_entity, %{due_date: "invalid format"}}} = response
     end
 
     test "when all params is valid and due_date is today, returns the transfer with status :created" do
