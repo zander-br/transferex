@@ -1,14 +1,26 @@
 defmodule TransferexWeb.ErrorViewTest do
   use TransferexWeb.ConnCase, async: true
 
-  # Bring render/3 and render_to_string/3 for testing custom views
-  import Phoenix.View
+  alias Transferex.Transfers.Data.Transfer
+  alias TransferexWeb.ErrorView
 
-  test "renders 404.html" do
-    assert render_to_string(TransferexWeb.ErrorView, "404.html", []) == "Not Found"
-  end
+  describe "render/2" do
+    test "render error.json with changeset" do
+      invalid_transfer =
+        build(:transfer_attrs, %{"value" => 0, "origin_account_id" => "invalid_uuid"})
 
-  test "renders 500.html" do
-    assert render_to_string(TransferexWeb.ErrorView, "500.html", []) == "Internal Server Error"
+      changeset = Transfer.changeset(invalid_transfer)
+
+      expected_response = %{
+        errors: [
+          %{field: "originAccountId", message: "invalid uuid"},
+          %{field: "value", message: "must be greater than 0"}
+        ]
+      }
+
+      response = render(ErrorView, "error.json", changeset: changeset)
+
+      assert expected_response == response
+    end
   end
 end
