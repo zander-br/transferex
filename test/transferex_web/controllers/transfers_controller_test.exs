@@ -30,5 +30,18 @@ defmodule TransferexWeb.TransfersControllerTest do
 
       assert expected_response == response
     end
+
+    test "when there is another error, returns the error", %{conn: conn} do
+      params = build(:transfer_request, %{"dueDate" => "01/01/2000"})
+
+      response =
+        conn
+        |> post(Routes.transfers_path(conn, :create), params)
+        |> json_response(:unprocessable_entity)
+
+      expected_response = %{"errors" => [%{"field" => "dueDate", "message" => "invalid format"}]}
+
+      assert expected_response == response
+    end
   end
 end
