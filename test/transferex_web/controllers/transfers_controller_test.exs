@@ -12,5 +12,23 @@ defmodule TransferexWeb.TransfersControllerTest do
 
       assert %{"id" => _id, "status" => "created"} = response
     end
+
+    test "when there is some error in changeset, returns the error", %{conn: conn} do
+      params = build(:transfer_request, %{"value" => 0, "origin_account_id" => "invalid_uuid"})
+
+      response =
+        conn
+        |> post(Routes.transfers_path(conn, :create), params)
+        |> json_response(:unprocessable_entity)
+
+      expected_response = %{
+        "errors" => [
+          %{"field" => "originAccountId", "message" => "invalid uuid"},
+          %{"field" => "value", "message" => "must be greater than 0"}
+        ]
+      }
+
+      assert expected_response == response
+    end
   end
 end
