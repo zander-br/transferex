@@ -5,7 +5,13 @@
     "lib/transferex_web/telemetry.ex",
     "lib/transferex_web/views/error_helpers.ex",
     "test/support/channel_case.ex",
-    "test/support/data_case.ex"
+    "test/support/data_case.ex",
+    "test/support/conn_case.ex",
+    "lib/transferex_web/gettext.ex",
+    "lib/transferex_web/endpoint.ex",
+    "lib/transferex.ex",
+    "lib/transferex/repo.ex",
+    "lib/transferex_web/channels/user_socket.ex"
   ],
   "treat_no_relevant_lines_as_covered": true
 }
