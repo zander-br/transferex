@@ -3,6 +3,9 @@ defmodule TransferexWeb.TransfersController do
 
   alias Transferex.Transfers.Core.CreateTransfer
   alias Transferex.Transfers.Data.Transfer
+  alias TransferexWeb.FallbackController
+
+  action_fallback FallbackController
 
   def create(conn, params) do
     with {:ok, %Transfer{} = transfer} <- CreateTransfer.execute(params) do
