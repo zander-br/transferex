@@ -79,5 +79,17 @@ defmodule TransferexWeb.TransfersControllerTest do
 
       assert expected_response == response
     end
+
+    test "when there is invalid uuid, return an error", %{conn: conn} do
+      invalid_id = "invalid_uuid"
+      expected_response = %{"message" => "invalid uuid"}
+
+      response =
+        conn
+        |> get(Routes.transfers_path(conn, :show, invalid_id))
+        |> json_response(:bad_request)
+
+      assert expected_response == response
+    end
   end
 end
