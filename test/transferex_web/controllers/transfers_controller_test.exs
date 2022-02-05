@@ -14,7 +14,7 @@ defmodule TransferexWeb.TransfersControllerTest do
     end
 
     test "when there is some error in changeset, returns the error", %{conn: conn} do
-      params = build(:transfer_request, %{"value" => 0, "origin_account_id" => "invalid_uuid"})
+      params = build(:transfer_request, %{"amount" => 0, "origin_account_id" => "invalid_uuid"})
 
       response =
         conn
@@ -24,7 +24,7 @@ defmodule TransferexWeb.TransfersControllerTest do
       expected_response = %{
         "errors" => [
           %{"field" => "originAccountId", "message" => "invalid uuid"},
-          %{"field" => "value", "message" => "must be greater than 0"}
+          %{"field" => "amount", "message" => "must be greater than 0"}
         ]
       }
 

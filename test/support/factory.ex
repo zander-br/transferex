@@ -5,7 +5,7 @@ defmodule Transferex.Factory do
 
   def transfer_attrs_factory do
     %{
-      "value" => 100.00,
+      "amount" => 100.00,
       "origin_account_id" => "b007861e-806d-4580-b705-ac8eff473e2c",
       "destination_account_id" => "a0868a72-8278-44ee-9125-b4035cdb2e09",
       "status" => :created
@@ -14,7 +14,7 @@ defmodule Transferex.Factory do
 
   def transfer_request_factory do
     %{
-      "value" => 100.20,
+      "amount" => 100.20,
       "originAccountId" => "b007861e-806d-4580-b705-ac8eff473e2c",
       "destinationAccountId" => "a0868a72-8278-44ee-9125-b4035cdb2e09"
     }
@@ -27,7 +27,7 @@ defmodule Transferex.Factory do
       id: "ffaa0f75-ede9-4921-81a5-0f898901023d",
       origin_account_id: "27287514-5d72-4e79-8d05-df613e3492cc",
       status: :created,
-      value: Decimal.new(100)
+      amount: Decimal.new(100)
     }
   end
 end

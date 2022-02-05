@@ -6,13 +6,13 @@ defmodule Transferex.Transfers.Data.Transfer do
   alias Ecto.Enum
   alias Ecto.UUID
 
-  @fields [:value, :due_date, :origin_account_id, :destination_account_id, :status]
-  @required_fields [:value, :origin_account_id, :destination_account_id, :status]
+  @fields [:amount, :due_date, :origin_account_id, :destination_account_id, :status]
+  @required_fields [:amount, :origin_account_id, :destination_account_id, :status]
   @transfer_status [:created, :aproved, :scheduled, :rejected]
 
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "transfers" do
-    field :value, :decimal
+    field :amount, :decimal
     field :due_date, :date
     field :origin_account_id, :binary_id
     field :destination_account_id, :binary_id
@@ -29,7 +29,7 @@ defmodule Transferex.Transfers.Data.Transfer do
     transfer
     |> cast(attrs, @fields)
     |> validate_required(@required_fields)
-    |> validate_number(:value, greater_than: 0)
+    |> validate_number(:amount, greater_than: 0)
     |> validate_uuid(:origin_account_id)
     |> validate_uuid(:destination_account_id)
   end

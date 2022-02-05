@@ -7,14 +7,14 @@ defmodule TransferexWeb.ErrorViewTest do
   describe "render/2" do
     test "render error.json with changeset" do
       invalid_transfer =
-        build(:transfer_attrs, %{"value" => 0, "origin_account_id" => "invalid_uuid"})
+        build(:transfer_attrs, %{"amount" => 0, "origin_account_id" => "invalid_uuid"})
 
       changeset = Transfer.changeset(invalid_transfer)
 
       expected_response = %{
         errors: [
           %{field: "originAccountId", message: "invalid uuid"},
-          %{field: "value", message: "must be greater than 0"}
+          %{field: "amount", message: "must be greater than 0"}
         ]
       }
 

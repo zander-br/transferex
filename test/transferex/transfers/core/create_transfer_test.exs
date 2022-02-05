@@ -49,8 +49,8 @@ defmodule Transferex.Transfers.Core.CreateTransferTest do
     end
 
     test "when there is invalid params, returns an error" do
-      invalid_transfer = build(:transfer_attrs, %{"value" => 0})
-      expected_response = %{value: ["must be greater than 0"]}
+      invalid_transfer = build(:transfer_attrs, %{"amount" => 0})
+      expected_response = %{amount: ["must be greater than 0"]}
 
       response = CreateTransfer.execute(invalid_transfer)
 
