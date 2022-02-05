@@ -34,5 +34,13 @@ defmodule TransferexWeb.ErrorViewTest do
 
       assert expected_response == response
     end
+
+    test "render error.json with error message" do
+      expected_response = %{message: "error message"}
+
+      response = render(ErrorView, "error.json", error: "error message")
+
+      assert expected_response == response
+    end
   end
 end

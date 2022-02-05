@@ -15,7 +15,7 @@ defmodule TransferexWeb.ErrorView do
     %{errors: errors}
   end
 
-  def render("error.json", %{error: error}) do
+  def render("error.json", %{error: error}) when is_map(error) do
     errors =
       Enum.map(error, fn {field, detail} ->
         %{
@@ -26,6 +26,8 @@ defmodule TransferexWeb.ErrorView do
 
     %{errors: errors}
   end
+
+  def render("error.json", %{error: error}), do: %{message: error}
 
   defp render_detail({message, values}) do
     Enum.reduce(values, message, fn {key, value}, acc ->

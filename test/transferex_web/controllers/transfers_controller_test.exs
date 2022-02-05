@@ -67,5 +67,17 @@ defmodule TransferexWeb.TransfersControllerTest do
                "status" => "created"
              } = response
     end
+
+    test "when there is no transfer with id, return an error", %{conn: conn} do
+      another_id = "7356b866-2ac6-4373-b455-36dde62484be"
+      expected_response = %{"message" => "transfer not found"}
+
+      response =
+        conn
+        |> get(Routes.transfers_path(conn, :show, another_id))
+        |> json_response(:not_found)
+
+      assert expected_response == response
+    end
   end
 end
