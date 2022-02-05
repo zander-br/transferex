@@ -19,5 +19,14 @@ defmodule Transferex.Transfers.Core.GetTransferTest do
                 status: :created
               }} = response
     end
+
+    test "when there is no transfer with id, return an error" do
+      another_id = "7356b866-2ac6-4373-b455-36dde62484be"
+      insert(:transfer)
+
+      response = GetTransfer.by_id(another_id)
+
+      assert {:error, {:not_found, "transfer not found"}} = response
+    end
   end
 end
