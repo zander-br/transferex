@@ -3,7 +3,9 @@ defmodule Transferex.Transfers.Core.GetTransfer do
   alias Transferex.Transfers.Data.Transfer
 
   def by_id(id) do
-    transfer = Repo.get!(Transfer, id)
-    {:ok, transfer}
+    case Repo.get(Transfer, id) do
+      nil -> {:error, {:not_found, "transfer not found"}}
+      transfer -> {:ok, transfer}
+    end
   end
 end
