@@ -44,4 +44,28 @@ defmodule TransferexWeb.TransfersControllerTest do
       assert expected_response == response
     end
   end
+
+  describe "show/2" do
+    setup %{conn: conn} do
+      insert(:transfer)
+
+      {:ok, conn: conn}
+    end
+
+    test "when there is a transfer with the given id, returns the transfer", %{conn: conn} do
+      id = "ffaa0f75-ede9-4921-81a5-0f898901023d"
+
+      response =
+        conn
+        |> get(Routes.transfers_path(conn, :show, id))
+        |> json_response(:ok)
+
+      assert %{
+               "amount" => "100",
+               "destinationAccount" => "f47a196e-e8a3-4db3-9322-3e4df81b5160",
+               "originAccount" => "27287514-5d72-4e79-8d05-df613e3492cc",
+               "status" => "created"
+             } = response
+    end
+  end
 end
