@@ -8,7 +8,7 @@ defmodule Transferex.Transfers.Data.Transfer do
 
   @fields [:amount, :due_date, :origin_account_id, :destination_account_id, :status]
   @required_fields [:amount, :origin_account_id, :destination_account_id, :status]
-  @transfer_status [:created, :aproved, :scheduled, :rejected]
+  @transfer_status [:created, :approved, :scheduled, :rejected]
 
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "transfers" do
