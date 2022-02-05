@@ -9,4 +9,16 @@ defmodule TransferexWeb.TransfersView do
       status: transfer.status
     }
   end
+
+  def render("show.json", %{transfer: %Transfer{} = transfer}) do
+    %{
+      id: transfer.id,
+      status: transfer.status,
+      amount: transfer.amount,
+      origin_account: transfer.origin_account_id,
+      destination_account: transfer.destination_account_id,
+      due_date: transfer.due_date,
+      transfer_date: transfer.inserted_at
+    }
+  end
 end
