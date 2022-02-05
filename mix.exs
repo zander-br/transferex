@@ -54,6 +54,8 @@ defmodule Transferex.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:casex, "~> 0.4.2"},
       {:inflex, "~> 2.1"},
+      {:tesla, "~> 1.4"},
+      {:hackney, "~> 1.17"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.10", only: :test},
       {:git_hooks, "~> 0.6.5", only: [:dev], runtime: false},
