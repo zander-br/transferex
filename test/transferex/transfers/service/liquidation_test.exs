@@ -59,6 +59,22 @@ defmodule Transferex.Transfers.Service.LiquidationTest do
       assert %Transfer{status: :rejected} = transfer
     end
 
+    test "when liquidation fails by internal server error, returns error", %{bypass: bypass} do
+      id = "ffaa0f75-ede9-4921-81a5-0f898901023d"
+      insert(:transfer)
+      url = endpoint_url(bypass.port)
+
+      Bypass.expect(bypass, "POST", "/paymentOrders", fn conn ->
+        conn
+        |> Conn.put_resp_header("content-type", "application/json")
+        |> Conn.resp(500, "")
+      end)
+
+      response = Liquidation.execute(url, id)
+
+      assert :error == response
+    end
+
     defp endpoint_url(port), do: "http://localhost:#{port}"
   end
 
