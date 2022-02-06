@@ -23,7 +23,9 @@ defmodule TransferexWeb.TransfersViewTest do
              due_date: transfer.due_date,
              origin_account: transfer.origin_account_id,
              amount: Decimal.new(100),
-             transfer_date: nil
+             transfer_date: nil,
+             liquidation_date: nil,
+             liquidation_id: nil
            } == response
   end
 end
