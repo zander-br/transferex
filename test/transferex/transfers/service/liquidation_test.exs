@@ -42,4 +42,20 @@ defmodule Transferex.Transfers.Service.LiquidationTest do
 
     defp endpoint_url(port), do: "http://localhost:#{port}/"
   end
+
+  describe "create_liquidation_data/1" do
+    test "when due_date is not nil, returns liquidation data with expectedOn equals due_date" do
+      transfer = build(:transfer, %{due_date: Date.from_iso8601!("2000-12-25")})
+
+      expected_liquidation_data = %{
+        "amount" => 100_000,
+        "expectedOn" => "25-12-2000",
+        "externalId" => "ffaa0f75-ede9-4921-81a5-0f898901023d"
+      }
+
+      liquidation_data = Liquidation.create_liquidation_data(transfer)
+
+      assert expected_liquidation_data == liquidation_data
+    end
+  end
 end

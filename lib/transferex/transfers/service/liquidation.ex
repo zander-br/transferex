@@ -17,7 +17,7 @@ defmodule Transferex.Transfers.Service.Liquidation do
     |> handle_post(transfer)
   end
 
-  defp create_liquidation_data(%Transfer{} = transfer) do
+  def create_liquidation_data(%Transfer{} = transfer) do
     transfer
     |> add_external_id()
     |> add_amount(transfer)
