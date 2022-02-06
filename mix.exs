@@ -56,6 +56,7 @@ defmodule Transferex.MixProject do
       {:inflex, "~> 2.1"},
       {:tesla, "~> 1.4"},
       {:hackney, "~> 1.17"},
+      {:oban, "~> 2.10"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.10", only: :test},
       {:git_hooks, "~> 0.6.5", only: [:dev], runtime: false},
