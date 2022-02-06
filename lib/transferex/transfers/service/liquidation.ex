@@ -38,6 +38,12 @@ defmodule Transferex.Transfers.Service.Liquidation do
     :ok
   end
 
+  defp handle_post({:ok, %Env{status: 405, body: _body}}, %Transfer{} = transfer) do
+    TransferRepo.update_transfer(transfer, %{status: :rejected})
+
+    :ok
+  end
+
   defp add_external_id(%Transfer{id: id}), do: %{"externalId" => id}
 
   defp add_amount(liquidation, %Transfer{amount: amount}) do
