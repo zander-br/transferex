@@ -1,6 +1,5 @@
 defmodule Transferex.Transfers.Core.CreateTransfer do
-  alias Transferex.Repo
-  alias Transferex.Transfers.Data.Transfer
+  alias Transferex.Transfers.Core.TransferRepo
 
   def execute(transfer) do
     transfer
@@ -36,9 +35,7 @@ defmodule Transferex.Transfers.Core.CreateTransfer do
   defp add_status_transfer({:error, opts}), do: {:error, opts}
 
   defp insert_transfer({:ok, transfer}) do
-    changeset = Transfer.changeset(transfer)
-
-    case Repo.insert(changeset) do
+    case TransferRepo.create_transfer(transfer) do
       {:ok, transfer} -> {:ok, transfer}
       {:error, changeset} -> {:error, {:unprocessable_entity, changeset}}
     end

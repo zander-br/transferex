@@ -2,14 +2,14 @@ defmodule Transferex.Transfers.Service.Liquidation do
   use Tesla
 
   alias Tesla.Env
-  alias Transferex.Repo
+  alias Transferex.Transfers.Core.TransferRepo
   alias Transferex.Transfers.Data.Transfer
 
   plug Tesla.Middleware.Headers, [{"User-Agent", "request"}]
   plug Tesla.Middleware.JSON
 
   def execute(url, transfer_id) do
-    transfer = Repo.get!(Transfer, transfer_id)
+    transfer = TransferRepo.get_by_id(transfer_id)
     liquidation_data = create_liquidation_data(transfer)
 
     "#{url}/paymentOrders"
@@ -33,8 +33,7 @@ defmodule Transferex.Transfers.Service.Liquidation do
       liquidation_date: NaiveDateTime.utc_now()
     }
 
-    changeset = Transfer.changeset(transfer, liquidation)
-    Repo.update(changeset)
+    TransferRepo.update_transfer(transfer, liquidation)
 
     :ok
   end
