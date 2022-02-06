@@ -45,6 +45,7 @@ defmodule Transferex.Transfers.Service.Liquidation do
   end
 
   defp handle_post({:ok, %Env{status: 500, body: _body}}, %Transfer{}), do: :error
+  defp handle_post({:error, _reason}, %Transfer{}), do: :error
 
   defp add_external_id(%Transfer{id: id}), do: %{"externalId" => id}
 
