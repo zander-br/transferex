@@ -52,8 +52,7 @@ defmodule Transferex.Transfers.Service.LiquidationTest do
         |> Conn.resp(405, "")
       end)
 
-      Liquidation.execute(url, id)
-
+      assert_raise RuntimeError, "business role error", fn -> Liquidation.execute(url, id) end
       transfer = Repo.get(Transfer, id)
 
       assert %Transfer{status: :rejected} = transfer
@@ -70,9 +69,7 @@ defmodule Transferex.Transfers.Service.LiquidationTest do
         |> Conn.resp(500, "")
       end)
 
-      response = Liquidation.execute(url, id)
-
-      assert :error == response
+      assert_raise RuntimeError, "internal server error", fn -> Liquidation.execute(url, id) end
     end
 
     test "when there is a generic error, returns an error", %{bypass: bypass} do
@@ -82,9 +79,7 @@ defmodule Transferex.Transfers.Service.LiquidationTest do
 
       Bypass.down(bypass)
 
-      response = Liquidation.execute(url, id)
-
-      assert :error == response
+      assert_raise RuntimeError, "generic error", fn -> Liquidation.execute(url, id) end
     end
 
     defp endpoint_url(port), do: "http://localhost:#{port}"

@@ -41,11 +41,14 @@ defmodule Transferex.Transfers.Service.Liquidation do
   defp handle_post({:ok, %Env{status: 405, body: _body}}, %Transfer{} = transfer) do
     TransferRepo.update_transfer(transfer, %{status: :rejected})
 
-    :ok
+    raise("business role error")
   end
 
-  defp handle_post({:ok, %Env{status: 500, body: _body}}, %Transfer{}), do: :error
-  defp handle_post({:error, _reason}, %Transfer{}), do: :error
+  defp handle_post({:ok, %Env{status: 500, body: _body}}, %Transfer{}) do
+    raise("internal server error")
+  end
+
+  defp handle_post({:error, _reason}, %Transfer{}), do: raise("generic error")
 
   defp add_external_id(%Transfer{id: id}), do: %{"externalId" => id}
 
