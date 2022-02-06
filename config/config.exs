@@ -19,6 +19,11 @@ config :transferex, TransferexWeb.Endpoint,
   pubsub_server: Transferex.PubSub,
   live_view: [signing_salt: "66zAbDMD"]
 
+config :transferex, Oban,
+  repo: Transferex.Repo,
+  plugins: [Oban.Plugins.Pruner],
+  queues: [default: 20]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

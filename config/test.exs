@@ -20,3 +20,5 @@ config :transferex, TransferexWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :transferex, Oban, queues: false, plugins: false

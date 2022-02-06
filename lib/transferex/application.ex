@@ -14,9 +14,9 @@ defmodule Transferex.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Transferex.PubSub},
       # Start the Endpoint (http/https)
-      TransferexWeb.Endpoint
-      # Start a worker by calling: Transferex.Worker.start_link(arg)
-      # {Transferex.Worker, arg}
+      TransferexWeb.Endpoint,
+      # Start the Oban
+      {Oban, oban_config()}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -30,5 +30,9 @@ defmodule Transferex.Application do
   def config_change(changed, _new, removed) do
     TransferexWeb.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  defp oban_config do
+    Application.fetch_env!(:transferex, Oban)
   end
 end
