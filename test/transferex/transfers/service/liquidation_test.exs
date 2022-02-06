@@ -75,6 +75,18 @@ defmodule Transferex.Transfers.Service.LiquidationTest do
       assert :error == response
     end
 
+    test "when there is a generic error, returns an error", %{bypass: bypass} do
+      id = "ffaa0f75-ede9-4921-81a5-0f898901023d"
+      insert(:transfer)
+      url = endpoint_url(bypass.port)
+
+      Bypass.down(bypass)
+
+      response = Liquidation.execute(url, id)
+
+      assert :error == response
+    end
+
     defp endpoint_url(port), do: "http://localhost:#{port}"
   end
 
