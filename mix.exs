@@ -59,7 +59,8 @@ defmodule Transferex.MixProject do
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.10", only: :test},
       {:git_hooks, "~> 0.6.5", only: [:dev], runtime: false},
-      {:ex_machina, "~> 2.7.0", only: :test}
+      {:ex_machina, "~> 2.7.0", only: :test},
+      {:bypass, "~> 2.1", only: :test}
     ]
   end
 
