@@ -57,5 +57,20 @@ defmodule Transferex.Transfers.Service.LiquidationTest do
 
       assert expected_liquidation_data == liquidation_data
     end
+
+    test "when due_date is nil, returns liquidation data with expectedOn equals current date" do
+      transfer = build(:transfer, %{due_date: nil, amount: Decimal.new("12.5")})
+      current_date_formatted = Date.utc_today() |> Calendar.strftime("%d-%m-%Y")
+
+      expected_liquidation_data = %{
+        "amount" => 12_500,
+        "expectedOn" => current_date_formatted,
+        "externalId" => "ffaa0f75-ede9-4921-81a5-0f898901023d"
+      }
+
+      liquidation_data = Liquidation.create_liquidation_data(transfer)
+
+      assert expected_liquidation_data == liquidation_data
+    end
   end
 end
