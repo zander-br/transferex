@@ -95,12 +95,26 @@ $ mix phx.server
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
+- [Phoenix](https://www.phoenixframework.org/)
+- [Ecto](https://hexdocs.pm/ecto/Ecto.html)
+- [Casex](https://hexdocs.pm/casex/Casex.html)
+- [Inflex](https://hexdocs.pm/inflex/Inflex.html)
+- [Tesla](https://hexdocs.pm/tesla/Tesla.html)
+- [Hackney](https://github.com/benoitc/hackney)
+- [Oban](https://hexdocs.pm/oban/Oban.html) 😍
+- [Credo](https://hexdocs.pm/credo/overview.html)
+- [ExCoveralls](https://hexdocs.pm/excoveralls/ExCoveralls.html)
+- [GitHooks](https://hexdocs.pm/git_hooks/readme.html)
+- [ExMachina](https://hexdocs.pm/ex_machina/ExMachina.html)
+- [Bypass](https://hexdocs.pm/bypass/Bypass.html)
+
 ## 🦸 Autor
 
 <a href="https://github.com/zander-br">
  <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/51419725" width="100px;" alt=""/>
  <br />
  <sub><b>Anderson Santos</b></sub></a> <a href="https://github.com/zander-br" title="Rocketseat">🚀</a>
+ <br />
  <br />
 
 [![Linkedin Badge](https://img.shields.io/badge/-Anderson-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/zander-br/)](https://www.linkedin.com/in/zander-br/)
