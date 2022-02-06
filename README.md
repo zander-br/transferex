@@ -87,6 +87,10 @@ $ mix phx.server
 
 ```
 
+<p align="center">
+  <a href="https://github.com/zander-br/transferex/blob/main/insomnia.json" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a>
+</p>
+
 ## 🛠 Tecnologias
 
 As seguintes ferramentas foram usadas na construção do projeto:
