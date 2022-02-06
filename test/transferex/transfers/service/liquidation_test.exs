@@ -40,7 +40,26 @@ defmodule Transferex.Transfers.Service.LiquidationTest do
              } = transfer
     end
 
-    defp endpoint_url(port), do: "http://localhost:#{port}/"
+    test "when liquidation fails by business rule, must reject transfer in database",
+         %{bypass: bypass} do
+      id = "ffaa0f75-ede9-4921-81a5-0f898901023d"
+      insert(:transfer)
+      url = endpoint_url(bypass.port)
+
+      Bypass.expect(bypass, "POST", "/paymentOrders", fn conn ->
+        conn
+        |> Conn.put_resp_header("content-type", "application/json")
+        |> Conn.resp(405, "")
+      end)
+
+      Liquidation.execute(url, id)
+
+      transfer = Repo.get(Transfer, id)
+
+      assert %Transfer{status: :rejected} = transfer
+    end
+
+    defp endpoint_url(port), do: "http://localhost:#{port}"
   end
 
   describe "create_liquidation_data/1" do
