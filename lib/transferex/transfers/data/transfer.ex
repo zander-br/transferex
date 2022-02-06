@@ -6,7 +6,15 @@ defmodule Transferex.Transfers.Data.Transfer do
   alias Ecto.Enum
   alias Ecto.UUID
 
-  @fields [:amount, :due_date, :origin_account_id, :destination_account_id, :status]
+  @fields [
+    :amount,
+    :due_date,
+    :origin_account_id,
+    :destination_account_id,
+    :status,
+    :liquidation_id,
+    :liquidation_date
+  ]
   @required_fields [:amount, :origin_account_id, :destination_account_id, :status]
   @transfer_status [:created, :approved, :scheduled, :rejected]
 
@@ -16,6 +24,8 @@ defmodule Transferex.Transfers.Data.Transfer do
     field :due_date, :date
     field :origin_account_id, :binary_id
     field :destination_account_id, :binary_id
+    field :liquidation_id, :binary_id
+    field :liquidation_date, :naive_datetime
     field :status, Enum, values: @transfer_status
 
     timestamps()
