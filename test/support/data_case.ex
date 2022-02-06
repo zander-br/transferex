@@ -27,6 +27,7 @@ defmodule Transferex.DataCase do
       import Ecto.Query
       import Transferex.DataCase
       import Transferex.Factory
+      use Oban.Testing, repo: Transferex.Repo
     end
   end
 
