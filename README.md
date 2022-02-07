@@ -15,6 +15,7 @@
   - [Rodando o banco de dados](#user-content--rodando-o-banco-de-dados)
   - [Rodando o microserviço mock de liquidação](#user-content--rodando-o-microserviço-mock-de-liquidação)
   - [Rodando o microserviço de transferência](#user-content--rodando-o-microserviço-de-transferência)
+- [Documentação API](#-documentação-api)
 - [Tecnologias](#-tecnologias)
 - [Autor](#-autor)
 
@@ -85,6 +86,54 @@ $ mix phx.server
 
 # A aplicação será aberta na porta:4000 - acesse http://localhost:4000
 
+```
+
+## 🔌 Documentação API
+
+### POST - Criação de uma transferência
+
+http://localhost:4000/api/transfers
+
+**Payload**
+
+```json
+{
+  "amount": 12.25,
+  "originAccountId": "b007861e-806d-4580-b705-ac8eff473e2c",
+  "destinationAccountId": "a0868a72-8278-44ee-9125-b4035cdb2e09",
+  "due_date": "2022-12-31"
+}
+```
+
+> O campo `due_date` é **_opcional_**, e caso não seja informado no momento da transfência a mesma será liquidada imediatamente, porém caso seja informado e essa se refira a uma data futura a transferência será enviada para a API de liquidação apenas na data do vencimento as 10h da manhã, caso a data de vencimento já tenha passada, o serviço registra a transferência para consultas futuras mais com o status `rejected`.
+
+**Response**
+
+```json
+{
+  "id": "23ac079b-f210-4d97-9d64-a2826c8188e7",
+  "status": "created"
+}
+```
+
+### GET - Consulta de uma transferência
+
+http://localhost:4000/api/transfers/:id
+
+**Response**
+
+```json
+{
+  "amount": "12.25",
+  "destinationAccount": "a0868a72-8278-44ee-9125-b4035cdb2e09",
+  "dueDate": null,
+  "id": "23ac079b-f210-4d97-9d64-a2826c8188e7",
+  "liquidationDate": "2022-02-06T16:39:40",
+  "liquidationId": "eedcfef2-9036-43bb-a95a-bc3ce504e63a",
+  "originAccount": "b007861e-806d-4580-b705-ac8eff473e2c",
+  "status": "approved",
+  "transferDate": "2022-02-06T16:39:22"
+}
 ```
 
 <p align="center">
