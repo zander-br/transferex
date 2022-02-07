@@ -7,7 +7,7 @@ defmodule Transferex.Transfers.Workers.Liquidation do
 
   @impl Oban.Worker
   def perform(%Oban.Job{args: %{"id" => id}}) do
-    liquidation_url = "http://localhost:3333"
+    liquidation_url = Application.get_env(:transferex, :config)[:liquidation_api_address]
     Liquidation.execute(liquidation_url, id)
     :ok
   end
