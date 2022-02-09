@@ -61,7 +61,8 @@ defmodule Transferex.MixProject do
       {:excoveralls, "~> 0.10", only: :test},
       {:git_hooks, "~> 0.6.5", only: [:dev], runtime: false},
       {:ex_machina, "~> 2.7.0", only: :test},
-      {:bypass, "~> 2.1", only: :test}
+      {:bypass, "~> 2.1", only: :test},
+      {:mox, "~> 1.0", only: :test}
     ]
   end
 
