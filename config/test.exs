@@ -21,4 +21,7 @@ config :transferex, TransferexWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+config :transferex, Transferex.Transfers.Workers.Liquidation,
+  liquidation_adapter: Transferex.Transfers.Services.LiquidationMock
+
 config :transferex, Oban, queues: false, plugins: false

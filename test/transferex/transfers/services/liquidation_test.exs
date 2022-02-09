@@ -1,10 +1,10 @@
-defmodule Transferex.Transfers.Service.LiquidationTest do
+defmodule Transferex.Transfers.Services.LiquidationTest do
   use Transferex.DataCase, async: true
 
   alias Plug.Conn
   alias Transferex.Repo
   alias Transferex.Transfers.Data.Transfer
-  alias Transferex.Transfers.Service.Liquidation
+  alias Transferex.Transfers.Services.Liquidation
 
   describe "execute/2" do
     setup do

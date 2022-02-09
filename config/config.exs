@@ -29,6 +29,9 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+config :transferex, Transferex.Transfers.Workers.Liquidation,
+  liquidation_adapter: Transferex.Transfers.Services.Liquidation
+
 config :transferex, :config, liquidation_api_address: "http://localhost:3333"
 
 # Use Jason for JSON parsing in Phoenix

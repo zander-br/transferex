@@ -3,12 +3,14 @@ defmodule Transferex.Transfers.Workers.Liquidation do
     queue: :default,
     max_attempts: 5
 
-  alias Transferex.Transfers.Service.Liquidation
-
   @impl Oban.Worker
   def perform(%Oban.Job{args: %{"id" => id}}) do
     liquidation_url = Application.get_env(:transferex, :config)[:liquidation_api_address]
-    Liquidation.execute(liquidation_url, id)
+    client().execute(liquidation_url, id)
     :ok
+  end
+
+  defp client do
+    Application.fetch_env!(:transferex, __MODULE__)[:liquidation_adapter]
   end
 end

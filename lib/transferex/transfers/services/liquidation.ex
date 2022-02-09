@@ -1,13 +1,17 @@
-defmodule Transferex.Transfers.Service.Liquidation do
+defmodule Transferex.Transfers.Services.Liquidation do
   use Tesla
 
   alias Tesla.Env
+  alias Transferex.Transfers.Behaviours.Liquidation, as: LiquidationBehaviour
   alias Transferex.Transfers.Core.TransferRepo
   alias Transferex.Transfers.Data.Transfer
 
   plug Tesla.Middleware.Headers, [{"User-Agent", "request"}]
   plug Tesla.Middleware.JSON
 
+  @behaviour LiquidationBehaviour
+
+  @impl LiquidationBehaviour
   def execute(url, transfer_id) do
     transfer = TransferRepo.get_by_id(transfer_id)
     liquidation_data = create_liquidation_data(transfer)

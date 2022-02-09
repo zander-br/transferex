@@ -11,7 +11,8 @@
     "lib/transferex_web/endpoint.ex",
     "lib/transferex.ex",
     "lib/transferex/repo.ex",
-    "lib/transferex_web/channels/user_socket.ex"
+    "lib/transferex_web/channels/user_socket.ex",
+    "lib/transferex/transfers/behaviors/*"
   ],
   "treat_no_relevant_lines_as_covered": true
 }
